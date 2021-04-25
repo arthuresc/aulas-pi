@@ -11,6 +11,7 @@
 <body class="container bg-light">
     <h1>Editar Produto</h1>
     <form method="POST" action="{{ route('product.update', $product->id) }}">
+        @method('PATCH')
         @csrf
         <div class="row mt-1">
             <span class="form-label">Nome</span>
@@ -18,16 +19,24 @@
         </div>
         <div class="row mt-1">
             <span class="form-label">Descrição</span>
-            <textarea name="description" class="form-control" value="{{ $product->description }} "></textarea>
+            <textarea name="description" class="form-control">{{ $product->description }}</textarea>
         </div>
         <div class="row mt-1">
             <span class="form-label">Preco</span>
             <input type="number" name="price" min="0.00" max="10000.00" step="1" class="form-control" value="{{ $product->price }}">
         </div>
+        <div class="row mt-1">
+            <span class="form-label">Categoria</span>
+            <select class="form-select" name="category_id">
+                @foreach($categories as $category)
+                <option value="{{$category->id}}" @if($category->id == $product->category_id) selected @endif > {{ $category->name }} </option>
+                @endforeach
+            </select>
+        </div>
         <div class="row mt-4">
             <button type="submit" class="btn btn-lg btn-success">Adicionar produto</button>
         </div>
     </form>
-
+    
 </body>
 </html>

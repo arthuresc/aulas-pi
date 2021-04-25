@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\TagsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,16 +24,20 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/semlogin', function (){
+    return view('deslogado');
+})->middleware(['guest']);
 
-// Route::resource('/product', ProductsController::class);
-// Route::resource('/category', CategorysController::class);
-// Route::resource('/tag', TagsController::class);
 
-Route::get('/product', [ProductsController::class, 'index'])->name('product.index');
-Route::get('/product/create', [ProductsController::class, 'create'])->name('product.create');
-Route::post('/product/store', [ProductsController::class, 'store'])->name('product.store'); //rota para armazenar produto no formulario
-Route::get('/product/edit/{product}', [ProductsController::class, 'edit'])->name('product.edit'); //envia o id no http como product para a controller
-Route::post('/product/update/{product}', [ProductsController::class, 'update'])->name('product.update');
+Route::resource('/product', ProductsController::class)->middleware(['auth']);
+Route::resource('/category', CategoriesController::class);
+Route::resource('/tag', TagsController::class);
+
+// Route::get('/product', [ProductsController::class, 'index'])->name('product.index');
+// Route::get('/product/create', [ProductsController::class, 'create'])->name('product.create');
+// Route::post('/product/store', [ProductsController::class, 'store'])->name('product.store'); //rota para armazenar produto no formulario
+// Route::get('/product/edit/{product}', [ProductsController::class, 'edit'])->name('product.edit'); //envia o id no http como product para a controller
+// Route::post('/product/update/{product}', [ProductsController::class, 'update'])->name('product.update');
 
 
 require __DIR__.'/auth.php';

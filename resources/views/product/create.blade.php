@@ -18,11 +18,19 @@
         </div>
         <div class="row mt-1">
             <span class="form-label">Descrição</span>
-            <textarea name="description" class="form-control"></textarea>
+            <textarea name="description" class="form-control" value="{{ $product->description }}"></textarea>
         </div>
         <div class="row mt-1">
             <span class="form-label">Preco</span>
             <input type="number" name="price" min="0.00" max="10000.00" step="1" class="form-control">
+        </div>
+        <div class="row mt-1">
+            <span class="form-label">Categoria</span>
+            <select class="form-select" name="category_id">
+                @foreach($categories as $category)
+                <option value="{{$category->id}} "> {{$category->name}} </option>
+                @endforeach
+            </select>
         </div>
         <div class="row mt-4">
             <button type="submit" class="btn btn-lg btn-success">Adicionar produto</button>

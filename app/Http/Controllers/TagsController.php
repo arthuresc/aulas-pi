@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class TagController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        return view('tag.index')->with('tags', Tag::all());
     }
 
     /**
@@ -24,7 +24,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('tag.create');
     }
 
     /**
@@ -35,7 +35,9 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Tag::create($request->all());
+        session()->flash('success', 'Tag cadastrado com sucesso!');
+        return redirect(route('tag.index'));
     }
 
     /**
@@ -57,7 +59,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        return view('tag.edit')->with('tag', $tag);
     }
 
     /**
@@ -69,7 +71,9 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $tag->update($request->all());
+        session()->flash('success', 'Tag foi editada');
+        return redirect(route('tag.index'));
     }
 
     /**
@@ -80,6 +84,9 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        session()->flash('success', 'Tag apagada, tá feliz agora?');
+        // redirect(route('alert','success'));
+        return redirect(route('tag.index'));
     }
 }
