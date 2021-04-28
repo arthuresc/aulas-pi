@@ -29,7 +29,6 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Imagem</th>                        
                         <th scope="col">Nome</th>
                         <th scope="col">Preço</th> 
                         <th scope="col">Categoria N</th>
@@ -40,22 +39,16 @@
                     @foreach($products as $product)
                     <tr>
                         <th>{{ $product->id }}</th>
-                        <th scope="col">
-                            <p>{{ $product->image }}</p>
-                            <img src="{{ $product->image }}" class="img-thumbnail"  alt="{{'Imagem principal do '.$product->name}} "> 
-                        </th>
                         <td>{{ $product->name }}</td>
                         <td> {{ $product->price }} </td>
                         <td> {{ $product->category_id }} </td>
                         <td>
-                            <a href="# " class="btn btn-sm btn-outline-primary">Ver</a>
-                            <a href="{{route('product.edit', $product->id)}}" class="btn btn-sm btn-outline-warning">Editar</a>
-                            <form class="d-inline" method="POST" action="{{ route('product.destroy', $product->id) }}" onsubmit="return remover()">
-                                @method('DELETE')
+                           <form class="d-inline" method="POST" action="{{ route('product.restore', $product->id) }}">
+                                @method('PATCH')
                                 @csrf
                                 
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Apagar123</button>
-                            </form>
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Restaurar</button>
+                            </form> 
                             <a href="#" onclick="remover('{{route('product.destroy', $product->id)}}')" class="btn btn-sm btn-outline-danger">Apagar</a>
                         </td>
                     </tr>

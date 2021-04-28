@@ -9,7 +9,7 @@
     <title>Document</title>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script defer>
-        function remover(route){
+        function remover(){
             return confirm('Você deseja remover a tag?');
         }
     </script>

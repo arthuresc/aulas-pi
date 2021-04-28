@@ -14,16 +14,17 @@
     </script>
 </head>
 <body >    
-    @include('layouts.navbar')
+    <?php echo $__env->make('layouts.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <main class="mx-3">
-        @if(session()->has('success'))
+        <?php if(session()->has('success')): ?>
         <div class="alert alert-success" role="alert">
-            {{ session()->get('success') }}
+            <?php echo e(session()->get('success')); ?>
+
         </div>
-        @endif
+        <?php endif; ?>
         
         <h1>Lista de Categorias</h1>    
-        <a href="{{ Route('category.create') }}" class="btn btn-lg btn-primary">Criar Categoria</a>    
+        <a href="<?php echo e(Route('category.create')); ?>" class="btn btn-lg btn-primary">Criar Categoria</a>    
         <div class="row">
             <table class="table">
                 <thead>
@@ -35,34 +36,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($categories as $category)
+                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <td>
-                            {{ $category->id }} 
+                            <?php echo e($category->id); ?> 
                         </td>
                         <td>
-                            {{ $category->name }}
+                            <?php echo e($category->name); ?>
+
                         </td>
                         <td>
-                            {{ $category->products->count() }} 
+                            <?php echo e($category->products->count()); ?> 
                         </td>
                         <td>
                             <a href="#" class="btn btn-sm btn-success">Visualizar</a>
-                            <a href="{{route('category.edit', $category->id)}} " class="btn btn-sm btn-warning">Editar</a>
-                            <form class="d-inline" method="POST" action="{{ route('category.destroy', $category->id) }}" onsubmit="return remover()">
-                                @method('DELETE')
-                                @csrf
+                            <a href="<?php echo e(route('category.edit', $category->id)); ?> " class="btn btn-sm btn-warning">Editar</a>
+                            <form class="d-inline" method="POST" action="<?php echo e(route('category.destroy', $category->id)); ?>" onsubmit="return remover()">
+                                <?php echo method_field('DELETE'); ?>
+                                <?php echo csrf_field(); ?>
                                 
                                 <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
                             </form>
-                            {{-- <a href="#" onclick="remover('{{ route( 'category.destroy', $category->id )}}' )" class="btn btn-sm btn-danger">Apagar</a>                         --}}
+                            
                         </td>
                     </tr>
                     
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
         </div>
     </main>
 </body>
-</html>
+</html><?php /**PATH /home/amebl44jn/estudos/aulas-pi/resources/views/category/index.blade.php ENDPATH**/ ?>

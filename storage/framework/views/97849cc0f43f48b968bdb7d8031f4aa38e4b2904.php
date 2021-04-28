@@ -15,15 +15,16 @@
     </script>
 </head>
 <body>
-    @include('layouts.navbar')
+    <?php echo $__env->make('layouts.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <main class="mx-5">
-        @if(session()->has('success'))
+        <?php if(session()->has('success')): ?>
         <div class="alert alert-success" role="alert">
-            {{ session()->get('success') }}
+            <?php echo e(session()->get('success')); ?>
+
         </div>
-        @endif
+        <?php endif; ?>
         <h1>Lista de Produtos</h1>    
-        <a href="{{ Route('product.create') }}" class="btn btn-lg btn-primary">Criar produto</a>
+        <a href="<?php echo e(Route('product.create')); ?>" class="btn btn-lg btn-primary">Criar produto</a>
         <div class="row">
             <table class="table">
                 <thead>
@@ -37,33 +38,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($products as $product)
+                    <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <th>{{ $product->id }}</th>
+                        <th><?php echo e($product->id); ?></th>
                         <th scope="col">
-                            <p>{{ $product->image }}</p>
-                            <img src="{{ $product->image }}" class="img-thumbnail"  alt="{{'Imagem principal do '.$product->name}} "> 
+                            <p><?php echo e($product->image); ?></p>
+                            <img src="<?php echo e($product->image); ?>" class="img-thumbnail"  alt="<?php echo e('Imagem principal do '.$product->name); ?> "> 
                         </th>
-                        <td>{{ $product->name }}</td>
-                        <td> {{ $product->price }} </td>
-                        <td> {{ $product->category_id }} </td>
+                        <td><?php echo e($product->name); ?></td>
+                        <td> <?php echo e($product->price); ?> </td>
+                        <td> <?php echo e($product->category_id); ?> </td>
                         <td>
                             <a href="# " class="btn btn-sm btn-outline-primary">Ver</a>
-                            <a href="{{route('product.edit', $product->id)}}" class="btn btn-sm btn-outline-warning">Editar</a>
-                            <form class="d-inline" method="POST" action="{{ route('product.destroy', $product->id) }}" onsubmit="return remover()">
-                                @method('DELETE')
-                                @csrf
+                            <a href="<?php echo e(route('product.edit', $product->id)); ?>" class="btn btn-sm btn-outline-warning">Editar</a>
+                            <form class="d-inline" method="POST" action="<?php echo e(route('product.destroy', $product->id)); ?>" onsubmit="return remover()">
+                                <?php echo method_field('DELETE'); ?>
+                                <?php echo csrf_field(); ?>
                                 
                                 <button type="submit" class="btn btn-sm btn-outline-danger">Apagar123</button>
                             </form>
-                            <a href="#" onclick="remover('{{route('product.destroy', $product->id)}}')" class="btn btn-sm btn-outline-danger">Apagar</a>
+                            <a href="#" onclick="remover('<?php echo e(route('product.destroy', $product->id)); ?>')" class="btn btn-sm btn-outline-danger">Apagar</a>
                         </td>
                     </tr>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
         </div>
     </main>    
     
 </body>
-</html>
+</html><?php /**PATH /home/amebl44jn/estudos/aulas-pi/resources/views/product/index.blade.php ENDPATH**/ ?>

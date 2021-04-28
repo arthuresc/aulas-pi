@@ -30,6 +30,8 @@ Route::get('/semlogin', function (){
 
 
 Route::resource('/product', ProductsController::class)->middleware(['auth']);
+Route::get('/trash/product', [ProductsController::class, 'trash'])->name('product.trash');
+Route::patch('/product/restore/{id}', [ProductsController::class, 'restore'])->name('product.restore');
 Route::resource('/category', CategoriesController::class);
 Route::resource('/tag', TagsController::class);
 

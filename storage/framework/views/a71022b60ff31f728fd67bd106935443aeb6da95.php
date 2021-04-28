@@ -10,8 +10,8 @@
 </head>
 <body class="container bg-light">
     <h1>Criar Produto</h1>
-    <form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
-        @csrf
+    <form method="POST" action="<?php echo e(route('product.store')); ?>" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
         <div class="row mt-1">
             <span class="form-label">Nome</span>
             <input type="text" name="name" class="form-control">
@@ -31,9 +31,9 @@
         <div class="row mt-1">
             <span class="form-label">Categoria</span>
             <select class="form-select" name="category_id">
-                @foreach($categories as $category)
-                <option value="{{$category->id}} "> {{$category->name}} </option>
-                @endforeach
+                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($category->id); ?> "> <?php echo e($category->name); ?> </option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
         </div>
         <div class="row mt-4">
@@ -42,4 +42,4 @@
     </form>
 
 </body>
-</html>
+</html><?php /**PATH /home/amebl44jn/estudos/aulas-pi/resources/views/product/create.blade.php ENDPATH**/ ?>
